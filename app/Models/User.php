@@ -57,4 +57,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Photo');
     }
 
+//    check if user has role_name role
+    public function hasRole($role_name){
+        # code
+        if ($this->is_active){
+            return strtolower($this->role->name) === strtolower($role_name);
+        }
+    }
 }

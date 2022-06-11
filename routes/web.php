@@ -18,11 +18,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', function (){
-    return view('admin.index');
-});
 
-Route::resource('/admin/users', \App\Http\Controllers\AdminUsersController::class);
+Route::middleware('admin')->group(function (){
+
+    Route::get('/admin', function (){
+        return view('admin.index');
+    });
+
+    Route::resource('/admin/users', \App\Http\Controllers\AdminUsersController::class);
+});

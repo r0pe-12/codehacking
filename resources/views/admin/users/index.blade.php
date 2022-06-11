@@ -2,6 +2,7 @@
 
     @section('content')
         <h1>Users</h1>
+        @include('includes.flash-sessions')
         <div class="card shadow mb-4">
             <div class="card-header py-3">
             </div>
@@ -19,6 +20,7 @@
                             <th>Status</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>DELETE</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,6 +45,13 @@
                                     <td>{{ $user->is_active ? 'Active' : 'Not Active' }}</td>
                                     <td>{{ $user->created_at->diffForHumans() }}</td>
                                     <td>{{ $user->updated_at->diffForHumans() }}</td>
+                                    <td>
+                                        <form method="post" action="{{route('users.destroy', $user)}}" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">DELETE</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif

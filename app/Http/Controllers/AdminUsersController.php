@@ -45,7 +45,7 @@ class AdminUsersController extends Controller
     public function store(UsersRequest $request)
     {
         //
-
+        $input = $request->all();
         if ($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
             $file->storeAs('/images', $name);
@@ -56,6 +56,7 @@ class AdminUsersController extends Controller
 //        dd($input);
         $input['password'] = bcrypt($input['password']);
         User::create($input);
+        session()->flash('user-created', 'User "' . $input['name'] . '" successfully created');
         return redirect()->route('users.index');
     }
 
@@ -118,6 +119,7 @@ class AdminUsersController extends Controller
         unset($input['password']);
 
         $user->update($input);
+        session()->flash('user-updated', 'User "' . $input['name'] . '" successfully updated');
         return redirect()->route('users.index');
     }
 
@@ -125,10 +127,14 @@ class AdminUsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+        unlink(public_path() . $user->photo->file);
+        $user->delete();
+        session()->flash('user-deleted', 'User "' . $user->name . '" successfully deleted');
+        return redirect()->route('users.index');
     }
 }

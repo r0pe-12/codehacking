@@ -44,8 +44,12 @@
                         </div>
                     </div>
                     <br>
-                    {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
-                    {!! Form::reset('Reset', ['class'=>'btn btn-danger']) !!}
+                    {!! Form::submit('Update User', ['class'=>'btn btn-primary col-sm-6']) !!}
+                    {!! Form::reset('Reset', ['class'=>'btn btn-danger col-sm-6']) !!}
+                {!! Form::close() !!}
+                <hr>
+                {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user]]) !!}
+                        {!! Form::submit('DELETE USER', ['class'=>'btn btn-danger col-sm-12']) !!}
                 {!! Form::close() !!}
             </div>
         </div>
