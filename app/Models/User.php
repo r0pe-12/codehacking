@@ -45,8 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+//    relation between roles and user
     public function role(){
         # code
         return $this->belongsTo('App\Models\Role');
     }
+
+//    relation between photos and user
+    public function photo(){
+        # code
+        return $this->belongsTo('App\Models\Photo');
+    }
+
 }
