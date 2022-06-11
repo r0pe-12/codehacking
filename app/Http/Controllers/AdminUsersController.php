@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Http\Requests\UsersUpdateRequest;
 use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
@@ -44,7 +45,6 @@ class AdminUsersController extends Controller
     public function store(UsersRequest $request)
     {
         //
-        $input = $request->all();
 
         if ($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
@@ -68,31 +68,57 @@ class AdminUsersController extends Controller
     public function show($id)
     {
         //
-        return view('admin.posts.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $user
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
-        return view('admin.posts.edit');
+        $roles = Role::pluck('name', 'id')->all();
+        return view('admin.users.edit', compact(
+            'roles',
+            'user'
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $user
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UsersUpdateRequest $request, User $user)
     {
         //
+        $input = $request->all();
+
+        if ($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+            $file->storeAs('/images', $name);
+
+            if ($photo = $user->photo) {
+                $photo->file = $name;
+                $photo->save();
+            } else {
+                $photo = Photo::create(['file'=>$name]);
+            }
+
+            $input['photo_id'] = $photo->id;
+        }
+
+        if ($input['password']){
+            $input['password'] = bcrypt($input['password']);
+        }
+        unset($input['password']);
+
+        $user->update($input);
+        return redirect()->route('users.index');
     }
 
     /**

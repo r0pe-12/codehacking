@@ -13,9 +13,17 @@ class Photo extends Model
         'file',
     ];
 
+    protected $files = '/storage/images/';
+
 
     public function user(){
         # code
         return $this->hasOne('App\Models\User');
+    }
+
+//    accessor for pulling out user profile photo
+    public function getFileAttribute($file){
+        # code
+        return $this->files . $file;
     }
 }

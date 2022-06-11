@@ -8,14 +8,15 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th>Picture</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                         </tr>
@@ -26,10 +27,20 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
-                                    <td>{{ $user->role === null ? 'User has no role' : $user->role->name }}</td>
-                                    <td>{{ $user->is_active ? 'Active' : 'Not Active' }}</td>
+                                    <td><a href="{{ route('users.edit', $user) }}">
+                                            <img src="{{ $user->photo ? $user->photo->file : 'https://via.placeholder.com/900x900.png/280137?text=NO%20PHOTO' }}" alt="" width="100px" class="img img-rounded">
+                                        </a></td>
+{{--                                    <td>--}}
+{{--                                        @if($photo = $user->photo)--}}
+{{--                                            <img src="{{ $photo->file }}" alt="" height="100">--}}
+{{--                                        @else--}}
+{{--                                            User has no profile photo--}}
+{{--                                        @endif--}}
+{{--                                    </td>--}}
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->role === null ? 'User has no role' : $user->role->name }}</td>
+                                    <td>{{ $user->is_active ? 'Active' : 'Not Active' }}</td>
                                     <td>{{ $user->created_at->diffForHumans() }}</td>
                                     <td>{{ $user->updated_at->diffForHumans() }}</td>
                                 </tr>
