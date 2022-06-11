@@ -26,8 +26,8 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
-                                    <td>{{ $user->role->name }}</td>
-                                    <td>{{ $user->is_active ? 'Active' : 'No' }}</td>
+                                    <td>{{ $user->role === null ? 'User has no role' : $user->role->name }}</td>
+                                    <td>{{ $user->is_active ? 'Active' : 'Not Active' }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at->diffForHumans() }}</td>
