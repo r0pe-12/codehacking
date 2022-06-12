@@ -104,6 +104,7 @@ class AdminUsersController extends Controller
             $file->storeAs('/images', $name);
 
             if ($photo = $user->photo) {
+                unlink(public_path() . $user->photo->file);
                 $photo->file = $name;
                 $photo->save();
             } else {

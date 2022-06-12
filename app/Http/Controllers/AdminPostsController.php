@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostsCreateRequest;
+use App\Http\Requests\PostsUpdateRequest;
 use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Post;
@@ -77,11 +78,16 @@ class AdminPostsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
+        $categories = Category::pluck('name', 'id')->all();
+        return view('admin.posts.edit', compact(
+            'post',
+            'categories'
+        ));
     }
 
     /**
@@ -89,21 +95,48 @@ class AdminPostsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         //
+        $input = $request->all();
+        $user = \Auth::user();
+
+        if ($file = $request->file('photo_id')){
+            $name = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('/images', $name);
+
+            if (!$post->photo){
+                $photo = Photo::create(['file'=>$name]);
+                $input['photo_id'] = $photo->id;
+            } else{
+                unlink(public_path() . $post->photo->file);
+                $post->photo()->update(['file'=>$name]);
+                $input['photo_id'] = $post->photo->id;
+            }
+        }
+        $post->update($input);
+        session()->flash('updated', 'Post "' . $input['title'] . '" successfully updated');
+        return redirect()->route('posts.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         //
+        if ($photo = $post->photo){
+            unlink(public_path() . $photo->file);
+            $photo->delete();
+        }
+        $post->delete();
+        session()->flash('deleted', 'Post "' . $post->name . '" successfully deleted');
+        return redirect()->route('posts.index');
     }
 }

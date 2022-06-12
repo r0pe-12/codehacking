@@ -15,12 +15,16 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->index()->unsigned()->default(0);
+
+            $table->unsignedBigInteger('user_id')->index()->default(0);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->integer('category_id')->index()->unsigned()->default(0);
             $table->integer('photo_id')->index()->unsigned()->default(0);
             $table->string('title');
             $table->text('body');
             $table->timestamps();
+
         });
     }
 

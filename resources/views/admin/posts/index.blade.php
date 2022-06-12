@@ -35,7 +35,11 @@
                                     <td>{{ $post->body }}</td>
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>{{ $post->updated_at->diffForHumans() }}</td>
-                                    <td><button class="btn btn-danger">DELETE</button></td>
+                                    <td>
+                                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminPostsController@destroy', $post]]) !!}
+                                            {!! Form::submit('DELETE', ['class'=>'btn btn-danger']) !!}
+                                        {!! Form::close() !!}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
