@@ -27,7 +27,8 @@ Route::middleware('admin')->group(function (){
 
     Route::get('/admin', function (){
         return view('admin.index');
-    });
+    })->name('index');
 
     Route::resource('/admin/users', \App\Http\Controllers\AdminUsersController::class);
+    Route::resource('/admin/posts', \App\Http\Controllers\AdminPostsController::class);
 });

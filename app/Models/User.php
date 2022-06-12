@@ -57,6 +57,12 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Photo');
     }
 
+//    relation between users and posts
+    public function posts(){
+        # code
+        return $this->hasMany('App\Models\Post');
+    }
+
 //    check if user has role_name role
     public function hasRole($role_name){
         # code

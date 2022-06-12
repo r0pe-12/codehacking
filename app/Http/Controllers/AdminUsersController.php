@@ -47,7 +47,7 @@ class AdminUsersController extends Controller
         //
         $input = $request->all();
         if ($file = $request->file('photo_id')){
-            $name = time() . $file->getClientOriginalName();
+            $name = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('/images', $name);
 
             $photo = Photo::create(['file'=>$name]);
@@ -56,7 +56,7 @@ class AdminUsersController extends Controller
 //        dd($input);
         $input['password'] = bcrypt($input['password']);
         User::create($input);
-        session()->flash('user-created', 'User "' . $input['name'] . '" successfully created');
+        session()->flash('created', 'User "' . $input['name'] . '" successfully created');
         return redirect()->route('users.index');
     }
 
@@ -100,7 +100,7 @@ class AdminUsersController extends Controller
         $input = $request->all();
 
         if ($file = $request->file('photo_id')){
-            $name = time() . $file->getClientOriginalName();
+            $name = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('/images', $name);
 
             if ($photo = $user->photo) {
@@ -119,7 +119,7 @@ class AdminUsersController extends Controller
         unset($input['password']);
 
         $user->update($input);
-        session()->flash('user-updated', 'User "' . $input['name'] . '" successfully updated');
+        session()->flash('updated', 'User "' . $input['name'] . '" successfully updated');
         return redirect()->route('users.index');
     }
 
@@ -133,8 +133,9 @@ class AdminUsersController extends Controller
     {
         //
         unlink(public_path() . $user->photo->file);
+        $user->photo->delete();
         $user->delete();
-        session()->flash('user-deleted', 'User "' . $user->name . '" successfully deleted');
+        session()->flash('deleted', 'User "' . $user->name . '" successfully deleted');
         return redirect()->route('users.index');
     }
 }

@@ -1,13 +1,13 @@
-@if(session('user-created'))
+@if(session('created'))
     <div class="alert alert-success">
-        {{ session('user-created') }}
+        {{ session('created') }}
     </div>
-@elseif(session('user-updated'))
+@elseif(session('updated'))
     <div class="alert alert-success">
-        {{ session('user-updated') }}
+        {{ session('updated') }}
     </div>
-@elseif(session('user-deleted'))
+@elseif(session('deleted'))
     <div class="alert alert-success">
-        {{ session('user-deleted') }}
+        {{ session('deleted') }}
     </div>
 @endif
