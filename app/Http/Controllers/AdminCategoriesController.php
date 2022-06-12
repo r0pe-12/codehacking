@@ -105,6 +105,9 @@ class AdminCategoriesController extends Controller
     public function destroy(Category $category)
     {
         //
+        dd(
+            $category
+        );
         $category->delete();
         session()->flash('deleted', 'Category successfully deleted');
         return redirect()->route('categories.index');
