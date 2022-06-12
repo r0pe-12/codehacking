@@ -27,7 +27,7 @@
                                     <td><a href="{{ route('users.edit', $post->user) }}">
                                         {{ $post->user->name }}
                                         </a></td>
-                                    <td>Category Name</td>
+                                    <td>{{ $post->category ? $post->category->name : 'No category' }}</td>
                                     <td><a href="{{ route('posts.edit', $post) }}">
                                             <img src="{{ $post->photo ? $post->photo->file : 'https://via.placeholder.com/900x900.png/280137?text=NO%20PHOTO' }}" alt="" width="100px" class="img img-rounded">
                                         </a></td>

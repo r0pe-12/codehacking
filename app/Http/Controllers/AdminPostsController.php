@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostsCreateRequest;
+use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class AdminPostsController extends Controller
     public function create()
     {
         //
-        return view('admin.posts.create');
+        $categories = Category::pluck('name', 'id')->all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -45,6 +47,7 @@ class AdminPostsController extends Controller
         //
         $user = \Auth::user();
         $input = $request->all();
+
         if ($file = $request->file('photo_id')){
             $name = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('/images', $name);
@@ -52,6 +55,7 @@ class AdminPostsController extends Controller
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
+
         $post = new Post($input);
         $user->posts()->save($post);
         session()->flash('created', 'Post "' . $input['title'] . '" successfully created');

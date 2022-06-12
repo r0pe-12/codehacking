@@ -16,11 +16,11 @@ class Post extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-////    relation between category and post
-//    public function category(){
-//        # code
-//        return 'Category Name';
-//    }
+//    relation between category and post
+    public function category(){
+        # code
+        return $this->belongsTo(Category::class);
+    }
 
 //    relation  between photo an post
     public function photo(){
