@@ -18,6 +18,7 @@
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>DELETE</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,7 +32,7 @@
                                     <td><a href="{{ route('posts.edit', $post) }}">
                                             <img src="{{ $post->photo ? $post->photo->file : 'https://via.placeholder.com/900x900.png/280137?text=NO%20PHOTO' }}" alt="" width="100px" class="img img-rounded">
                                         </a></td>
-                                    <td>{{ $post->title }}</td>
+                                    <td><a href="{{ route('posts.home', $post) }}" target="_blank">{{ $post->title }}</a></td>
                                     <td>{{ $post->body }}</td>
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>{{ $post->updated_at->diffForHumans() }}</td>
@@ -40,6 +41,7 @@
                                             {!! Form::submit('DELETE', ['class'=>'btn btn-danger']) !!}
                                         {!! Form::close() !!}
                                     </td>
+                                    <td><a href="{{ route('comments.show', $post) }}"><button class="btn btn-info">View Comments</button></a></td>
                                 </tr>
                             @endforeach
                         </tbody>

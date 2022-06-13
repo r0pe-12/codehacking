@@ -63,6 +63,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post');
     }
 
+//    user has many comments
+    public function comments(){
+        # code
+        return $this->hasMany('App\Models\Comment');
+    }
+
+//    user has many replies
+    public function replies(){
+        # code
+        return $this->hasMany('App\Models\CommentReply');
+    }
+
 //    check if user has role_name role
     public function hasRole($role_name){
         # code

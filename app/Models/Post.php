@@ -27,4 +27,10 @@ class Post extends Model
         # code
         return $this->belongsTo('App\Models\Photo');
     }
+
+//    relation between posts and comments Post has many comments
+    public function comments(){
+        # code
+        return $this->hasMany('App\Models\Comment');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostsCreateRequest;
 use App\Http\Requests\PostsUpdateRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -67,11 +68,16 @@ class AdminPostsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show(Post $post)
     {
         //
+        $comments = $post->comments()->orderByDesc('updated_at')->where('is_active', '=', 1)->get();
+        return view('post', compact(
+            'post',
+            'comments'
+        ));
     }
 
     /**
