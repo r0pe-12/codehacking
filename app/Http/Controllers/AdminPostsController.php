@@ -20,7 +20,7 @@ class AdminPostsController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        $posts = Post::paginate(5);
         return view('admin.posts.index', compact(
             'posts'
         ));
@@ -70,9 +70,10 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Post $post)
+    public function show($slug)
     {
         //
+        $post = Post::findBySlug($slug);
         $comments = $post->comments()->orderByDesc('updated_at')->where('is_active', '=', 1)->get();
         return view('post', compact(
             'post',

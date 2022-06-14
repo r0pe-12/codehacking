@@ -98,6 +98,7 @@ class CommentRepliesController extends Controller
         }
         session()->flash('reply-status', 'Reply status changed');
         return back();
+
     }
 
     /**

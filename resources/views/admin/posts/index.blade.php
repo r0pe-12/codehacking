@@ -32,7 +32,7 @@
                                     <td><a href="{{ route('posts.edit', $post) }}">
                                             <img src="{{ $post->photo ? $post->photo->file : 'https://via.placeholder.com/900x900.png/280137?text=NO%20PHOTO' }}" alt="" width="100px" class="img img-rounded">
                                         </a></td>
-                                    <td><a href="{{ route('posts.home', $post) }}" target="_blank">{{ $post->title }}</a></td>
+                                    <td><a href="{{ route('posts.home', $post->slug) }}" target="_blank">{{ $post->title }}</a></td>
                                     <td>{{ $post->body }}</td>
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>{{ $post->updated_at->diffForHumans() }}</td>
@@ -61,10 +61,10 @@
                 </div>
             </div>
         </div>
-{{--        --}}{{--laravel paginator--}}
-{{--        <div class="d-flex">--}}
-{{--            <div class="mx-auto">--}}
-{{--                {{->links()}}--}}
-{{--            </div>--}}
-{{--        </div>--}}
+{{--        laravel paginator--}}
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-5">
+                {{$posts->links()}}
+            </div>
+        </div>
     @endsection

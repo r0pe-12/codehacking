@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('category_id')->index()->unsigned()->default(0);
             $table->integer('photo_id')->index()->unsigned()->default(0);
             $table->string('title');
+            $table->string('slug');
             $table->text('body');
             $table->timestamps();
 
