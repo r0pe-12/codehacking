@@ -114,6 +114,7 @@ class AdminMediasController extends Controller
 
             $photos = Photo::find($request->checkBoxArray);
             foreach ($photos as $photo) {
+                unlink(public_path().$photo->file);
                 $photo->delete();
             }
             return back();

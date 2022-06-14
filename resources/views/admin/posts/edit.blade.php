@@ -2,6 +2,7 @@
 
     @section('content')
         <h1>Edit Post</h1>
+        @include('includes.tinymce')
         @include('includes.form-error')
         <div class="row">
             <div class="col-sm-3">
