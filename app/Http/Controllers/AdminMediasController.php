@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Photo;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use function Symfony\Component\String\b;
 
@@ -99,5 +100,25 @@ class AdminMediasController extends Controller
         $photo->delete();
         session()->flash('deleted', 'Photo successfully deleted');
         return back();
+    }
+
+//    delete selected media in bulk
+    public function bulkDeleteMedia(Request $request){
+        # code
+
+//        if (isset($request->delete_single)){
+//            $this->destroy($request->photo);
+//        }
+
+        if (isset($request->delete_bulk) && is_array($request->checkBoxArray)) {
+
+            $photos = Photo::find($request->checkBoxArray);
+            foreach ($photos as $photo) {
+                $photo->delete();
+            }
+            return back();
+        }
+            return back();
+
     }
 }

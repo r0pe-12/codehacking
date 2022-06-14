@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function (){
         Route::resource('/admin/posts', \App\Http\Controllers\AdminPostsController::class);
         Route::resource('/admin/categories', \App\Http\Controllers\AdminCategoriesController::class);
         Route::resource('/admin/media', \App\Http\Controllers\AdminMediasController::class);
+        Route::delete('/admin/mediaBulk/delete', [\App\Http\Controllers\AdminMediasController::class, 'bulkDeleteMedia'])->name('media.bulk.delete');
         Route::resource('/admin/comment/replies', \App\Http\Controllers\CommentRepliesController::class);
         Route::resource('/admin/comments', \App\Http\Controllers\PostCommentsController::class) ;
 
