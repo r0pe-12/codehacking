@@ -53,7 +53,7 @@
                             @endif
                         @else
                             @if(Auth::user()->hasRole('admin'))
-                                <a href="{{ route('index') }}" class="nav-link">Admin Page</a>
+                                <a href="{{ route('admin.index') }}" class="nav-link">Admin Page</a>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

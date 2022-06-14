@@ -41,6 +41,7 @@
             <hr>
 
             <div id="disqus_thread"></div>
+{{--            TODO disqus pravi masu gresaka ali sve radi kako treba!!!--}}
             <script>
                 /**
                  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.

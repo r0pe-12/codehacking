@@ -146,11 +146,11 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="{{asset('js/libs.js')}}"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- jQuery -->
+    <script src="{{asset('js/libs.js')}}"></script>
 
     @yield('scripts')
 

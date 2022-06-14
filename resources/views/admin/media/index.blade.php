@@ -67,12 +67,11 @@
                                 </div>
                             </div>
                         </div>
-        {{--                    laravel paginator--}}
-        {{--                    <div class="d-flex">--}}
-        {{--                        <div class="mx-auto">--}}
-        {{--                            {{->links()}}--}}
-        {{--                        </div>--}}
-        {{--                    </div>--}}
+                            <div class="d-flex">
+                                <div class="col-sm-6 col-sm-offset-5">
+                                    {{$photos->links()}}
+                                </div>
+                            </div>
                     </form>
                 @endif
             </div>

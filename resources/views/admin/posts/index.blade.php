@@ -14,7 +14,6 @@
                             <th>Category</th>
                             <th>Photo</th>
                             <th>Title</th>
-                            <th>Body</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>DELETE</th>
@@ -33,7 +32,6 @@
                                             <img src="{{ $post->photo ? $post->photo->file : 'https://via.placeholder.com/900x900.png/280137?text=NO%20PHOTO' }}" alt="" width="100px" class="img img-rounded">
                                         </a></td>
                                     <td><a href="{{ route('posts.home', $post->slug) }}" target="_blank">{{ $post->title }}</a></td>
-                                    <td>{{ $post->body }}</td>
                                     <td>{{ $post->created_at->diffForHumans() }}</td>
                                     <td>{{ $post->updated_at->diffForHumans() }}</td>
                                     <td>
