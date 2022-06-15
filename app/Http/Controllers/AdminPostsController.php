@@ -74,10 +74,12 @@ class AdminPostsController extends Controller
     {
         //
         $post = Post::findBySlug($slug);
+        $categories = Category::all();
         $comments = $post->comments()->orderByDesc('updated_at')->where('is_active', '=', 1)->get();
         return view('post', compact(
             'post',
-            'comments'
+            'comments',
+            'categories'
         ));
     }
 

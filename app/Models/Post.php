@@ -52,4 +52,14 @@ class Post extends Model
         # code
         return $this->hasMany('App\Models\Comment');
     }
+
+
+//    custom method for gething the post photo out
+    public function getPhoto(){
+        # code
+        if ($this->photo){
+            return $this->photo->file;
+        }
+        return 'https://via.placeholder.com/900x900.png/280137?text=NO%20PHOTO';
+    }
 }
